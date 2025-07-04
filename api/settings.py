@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'notifications',
     'pairings',
     'roles',
+    'django_extensions',
 
 ]
 
