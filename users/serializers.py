@@ -17,7 +17,7 @@ class UsuarioSerializer(serializers.ModelSerializer):
             'created_at', 'updated_at', 'password'
         ]
         # No permitir que rol_actual sea asignado en creación
-        read_only_fields = ['id', 'rol_actual', 'activo', 'fecha_activacion', 'created_at', 'updated_at']
+        read_only_fields = ['id', 'activo', 'fecha_activacion', 'created_at', 'updated_at']
 
     def create(self, validated_data):
         validated_data['rol_actual'] = 'anonimo'
