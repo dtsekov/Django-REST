@@ -1,5 +1,7 @@
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
+
+from pairings.models import Emparejamiento
 from .models import Informe
 from .serializers import InformeSerializer
 from users.permissions import IsCoordinador, IsOwnerOrCoordinador, IsMentorOrMentorizado

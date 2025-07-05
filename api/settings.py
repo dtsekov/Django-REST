@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'pairings',
     'roles',
     'django_extensions',
+    'django_rest_passwordreset',
 
 ]
 
