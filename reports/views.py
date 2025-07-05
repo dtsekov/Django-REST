@@ -29,6 +29,7 @@ class InformeViewSet(viewsets.ModelViewSet):
                 fecha_emparejamiento__year=year,
                 cuatrimestre=semester
             ).first()
+            print(pairing)
         else:  # mentorizado
             pairing = Emparejamiento.objects.get(
                 mentorizado=user,

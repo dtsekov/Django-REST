@@ -5,14 +5,14 @@ class InformeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Informe
         fields = '__all__'
-        read_only_fields = ['id', 'respuesta_general', 'observaciones', 'created_at', 'updated_at']
+        read_only_fields = ['id', 'respuesta_general', 'emparejamiento', 'observaciones', 'created_at', 'updated_at', "fecha_entrega"]
 
     def validate(self, data):
         errors = {}
         tipo = data.get('tipo') if 'tipo' in data else (self.instance.tipo if self.instance else None)
 
         # Common required fields
-        common_required = ['contenido', 'fecha_entrega', 'curso', 'nombre_completo', 'num_reuniones']
+        common_required = ['contenido', 'curso', 'nombre_completo', 'num_reuniones']
         for f in common_required:
             if not data.get(f) and not (self.instance and getattr(self.instance, f)):
                 errors[f] = 'Campo obligatorio.'

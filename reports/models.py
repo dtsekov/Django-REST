@@ -29,11 +29,11 @@ class Informe(models.Model):
         on_delete=models.CASCADE,
         related_name='informes'
     )
-    #emparejamiento = models.ForeignKey(
-        #'pairings.Emparejamiento',
-        #on_delete=models.CASCADE,
-        #related_name='informes'
-    #)
+    emparejamiento = models.ForeignKey(
+        'pairings.Emparejamiento',
+        on_delete=models.CASCADE,
+        related_name='informes'
+    )
     contenido = models.TextField()
     fecha_entrega = models.DateTimeField(default=timezone.now)
     curso = models.CharField(max_length=1)
