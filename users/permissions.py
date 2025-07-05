@@ -14,3 +14,6 @@ class IsCoordinador(BasePermission):
 class IsMentorOrMentorizado(BasePermission):
     def has_permission(self, request, view):
         return request.user.is_authenticated and (request.user.rol_actual == 'mentor' or request.user.rol_actual == 'mentorizado')
+class IsMentorOrMentorizadoOrCoordinador(BasePermission):
+    def has_permission(self, request, view):
+        return request.user.is_authenticated and (request.user.rol_actual == 'mentor' or request.user.rol_actual == 'mentorizado' or request.user.rol_actual == 'coordinador')
