@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import include, path
 from pairings.views import EmparejamientoViewSet
 from users.views import MyTokenObtainPairView
 from rest_framework.routers import DefaultRouter
@@ -12,4 +12,5 @@ router.register(r'pairings', EmparejamientoViewSet, basename='pairings')
 
 urlpatterns = [
     path('auth/login/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('auth/password/reset/', include('django_rest_passwordreset.urls', namespace='password_reset')),
 ] + router.urls
