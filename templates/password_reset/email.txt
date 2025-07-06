@@ -1,0 +1,11 @@
+Asunto: [Mentoría] Restablecer contraseña
+
+Hola {{ email }},
+
+Para restablecer tu contraseña, copia y pega esta URL en tu navegador:
+{{ reset_password_url }}
+
+Si no solicitaste este correo, ignóralo.
+
+Un saludo,
+El equipo de Mentoría

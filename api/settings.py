@@ -64,7 +64,7 @@ ROOT_URLCONF = 'api.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [ BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -88,7 +88,7 @@ DATABASES = {
         'NAME': 'mentoria_db',
         'USER': 'mentoria_admin',
         'PASSWORD': 'C+gZkb8$P$KN=62W',
-        'HOST': 'localhost',   # o 'localhost'
+        'HOST': 'localhost',
         'PORT': '3306',
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
@@ -110,6 +110,24 @@ SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('Bearer',),
 }
 AUTH_USER_MODEL = 'users.Usuario'
+
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST        = 'smtp.sendgrid.net'
+EMAIL_PORT        = 587
+EMAIL_HOST_USER   = 'apikey'
+EMAIL_HOST_PASSWORD = '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'
+EMAIL_USE_TLS     = 'True'
+DEFAULT_FROM_EMAIL = 'Mentoría <d.tsekov@alumnos.upm.es>'
+
+REST_PASSWORDRESET_EMAIL_TEMPLATE_NAME      = 'password_reset/email.txt'
+REST_PASSWORDRESET_EMAIL_HTML_TEMPLATE_NAME = 'password_reset/email.html'
+REST_PASSWORDRESET_EMAIL_SUBJECT_FORMAT     = '[Mentoría] Restablecer contraseña'
+
+
+
+
 
 
 # Password validation
