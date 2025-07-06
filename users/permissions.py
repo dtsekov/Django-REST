@@ -7,6 +7,30 @@ class IsOwnerOrCoordinador(BasePermission):
             return True
         return obj == request.user
 
+class IsReportOwnerOrCoordinador(BasePermission):
+    """
+    Para la app reports: solo el autor del informe (respuesta_general) o el coordinador.
+    """
+    def has_object_permission(self, request, view, obj):
+        # SAFE_METHODS incluyen GET, HEAD, OPTIONS
+        if request.user.rol_actual == 'coordinador':
+            return True
+        # autor del informe
+        return obj.respuesta_general == request.user
+
+class IsPairingOwnerOrCoordinador(BasePermission):
+    """
+    Para la app pairings: solo el mentor o el mentorizado implicado, o el coordinador.
+    """
+    def has_object_permission(self, request, view, obj):
+        if request.user.rol_actual == 'coordinador':
+            return True
+        if request.user.rol_actual == 'mentor' and obj.mentor == request.user:
+            return True
+        if request.user.rol_actual == 'mentorizado' and obj.mentorizado == request.user:
+            return True
+        return False
+
 class IsCoordinador(BasePermission):
     def has_permission(self, request, view):
         return request.user.is_authenticated and request.user.rol_actual == 'coordinador'

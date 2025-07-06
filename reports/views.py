@@ -4,7 +4,7 @@ from rest_framework.permissions import IsAuthenticated
 from pairings.models import Emparejamiento
 from .models import Informe
 from .serializers import InformeSerializer
-from users.permissions import IsCoordinador, IsOwnerOrCoordinador, IsMentorOrMentorizado, IsMentorOrMentorizadoOrCoordinador
+from users.permissions import IsCoordinador, IsOwnerOrCoordinador, IsMentorOrMentorizado, IsMentorOrMentorizadoOrCoordinador, IsReportOwnerOrCoordinador
 from django.utils import timezone
 
 class InformeViewSet(viewsets.ModelViewSet):
@@ -69,8 +69,8 @@ class InformeViewSet(viewsets.ModelViewSet):
     def get_permissions(self):
         if self.action in ['list', 'create']:
             return [IsMentorOrMentorizadoOrCoordinador()]
-        if self.action == 'retrieve':
-            return [IsOwnerOrCoordinador()]
-        if self.action == 'partial_update':
+        if self.action in ('retrieve'):
+            return [IsReportOwnerOrCoordinador()]
+        if self.action in ('partial_update'):
             return [IsCoordinador()]
         return [IsCoordinador()]

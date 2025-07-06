@@ -1,5 +1,5 @@
 from rest_framework import viewsets
-from users.permissions import IsCoordinador, IsOwnerOrCoordinador, IsMentorOrMentorizado, IsMentorOrMentorizadoOrCoordinador
+from users.permissions import IsCoordinador, IsOwnerOrCoordinador, IsMentorOrMentorizado, IsMentorOrMentorizadoOrCoordinador, IsPairingOwnerOrCoordinador
 from .models import Emparejamiento
 from .serializers import EmparejamientoSerializer
 from django.utils import timezone
@@ -40,6 +40,6 @@ class EmparejamientoViewSet(viewsets.ModelViewSet):
             return [IsMentorOrMentorizadoOrCoordinador()]
         if self.action in ('create'):
             return [IsCoordinador()]
-        if self.action == 'retrieve':
-            return [IsOwnerOrCoordinador()]
+        if self.action in ('retrieve'):
+            return [IsPairingOwnerOrCoordinador()]
         return [IsCoordinador()]
