@@ -7,6 +7,17 @@ class IsOwnerOrCoordinador(BasePermission):
             return True
         return obj == request.user
 
+class IsRoleOwnerOrCoordinador(BasePermission):
+    """
+    Para la app reports: solo el autor del informe (respuesta_general) o el coordinador.
+    """
+    def has_object_permission(self, request, view, obj):
+        # SAFE_METHODS incluyen GET, HEAD, OPTIONS
+        if request.user.rol_actual == 'coordinador':
+            return True
+        # autor del informe
+        return obj.usuario == request.user
+
 class IsReportOwnerOrCoordinador(BasePermission):
     """
     Para la app reports: solo el autor del informe (respuesta_general) o el coordinador.

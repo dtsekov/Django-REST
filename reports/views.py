@@ -69,8 +69,8 @@ class InformeViewSet(viewsets.ModelViewSet):
     def get_permissions(self):
         if self.action in ['list', 'create']:
             return [IsMentorOrMentorizadoOrCoordinador()]
-        if self.action in ('retrieve'):
+        if self.action == 'retrieve':
             return [IsReportOwnerOrCoordinador()]
-        if self.action in ('partial_update'):
+        if self.action == 'partial_update':
             return [IsCoordinador()]
         return [IsCoordinador()]

@@ -36,10 +36,10 @@ class EmparejamientoViewSet(viewsets.ModelViewSet):
         serializer.save()
 
     def get_permissions(self):
-        if self.action in ('list'):
+        if self.action == 'list':
             return [IsMentorOrMentorizadoOrCoordinador()]
-        if self.action in ('create'):
+        if self.action == 'create':
             return [IsCoordinador()]
-        if self.action in ('retrieve'):
+        if self.action == 'retrieve':
             return [IsPairingOwnerOrCoordinador()]
         return [IsCoordinador()]
