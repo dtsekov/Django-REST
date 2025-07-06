@@ -16,7 +16,7 @@ class IsReportOwnerOrCoordinador(BasePermission):
         if request.user.rol_actual == 'coordinador':
             return True
         # autor del informe
-        return obj.respuesta_general == request.user
+        return obj.user == request.user
 
 class IsPairingOwnerOrCoordinador(BasePermission):
     """

@@ -24,7 +24,7 @@ class Informe(models.Model):
     ]
 
     tipo = models.CharField(max_length=15, choices=TIPO_CHOICES)
-    respuesta_general = models.ForeignKey(
+    user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name='informes'

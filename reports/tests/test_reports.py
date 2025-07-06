@@ -43,7 +43,7 @@ class InformeTests(APITestCase):
             tipo="seguimiento1", contenido="t", fecha_entrega=timezone.now(), curso="1",
             grupo="G1", nombre_completo="N", num_reuniones=1, temas_reuniones="T",
             tipo_actividades="A", participacion_mentorizada="P", mejoras_sugeridas="M",
-            horas_dedicadas=1.0, respuesta_general=self.mentor, emparejamiento=self.emparejamiento
+            horas_dedicadas=1.0, user=self.mentor, emparejamiento=self.emparejamiento
         )
         self.client.credentials(HTTP_AUTHORIZATION=f"Bearer {self.get_token(self.mentor)}")
         url = reverse('reports-detail', args=[informe.id])
@@ -55,7 +55,7 @@ class InformeTests(APITestCase):
             tipo="seguimiento1", contenido="t", fecha_entrega=timezone.now(), curso="1",
             grupo="G1", nombre_completo="N", num_reuniones=1, temas_reuniones="T",
             tipo_actividades="A", participacion_mentorizada="P", mejoras_sugeridas="M",
-            horas_dedicadas=1.0, respuesta_general=self.mentor, emparejamiento=self.emparejamiento
+            horas_dedicadas=1.0, user=self.mentor, emparejamiento=self.emparejamiento
         )
         self.client.credentials(HTTP_AUTHORIZATION=f"Bearer {self.get_token(self.coordinador)}")
         response = self.client.get(reverse('reports-list'))
@@ -66,7 +66,7 @@ class InformeTests(APITestCase):
             tipo="seguimiento1", contenido="t", fecha_entrega=timezone.now(), curso="1",
             grupo="G1", nombre_completo="N", num_reuniones=1, temas_reuniones="T",
             tipo_actividades="A", participacion_mentorizada="P", mejoras_sugeridas="M",
-            horas_dedicadas=1.0, respuesta_general=self.mentor, emparejamiento=self.emparejamiento
+            horas_dedicadas=1.0, user=self.mentor, emparejamiento=self.emparejamiento
         )
         self.client.credentials(HTTP_AUTHORIZATION=f"Bearer {self.get_token(self.coordinador)}")
         url = reverse('reports-detail', args=[informe.id])
@@ -79,7 +79,7 @@ class InformeTests(APITestCase):
             tipo="seguimiento1", contenido="t", fecha_entrega=timezone.now(), curso="1",
             grupo="G1", nombre_completo="N", num_reuniones=1, temas_reuniones="T",
             tipo_actividades="A", participacion_mentorizada="P", mejoras_sugeridas="M",
-            horas_dedicadas=1.0, respuesta_general=self.mentor, emparejamiento=self.emparejamiento
+            horas_dedicadas=1.0, user=self.mentor, emparejamiento=self.emparejamiento
         )
         self.client.credentials(HTTP_AUTHORIZATION=f"Bearer {self.get_token(self.mentor)}")
         url = reverse('reports-detail', args=[informe.id])

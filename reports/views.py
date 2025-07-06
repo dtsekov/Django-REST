@@ -37,7 +37,7 @@ class InformeViewSet(viewsets.ModelViewSet):
                 cuatrimestre=semester
             )
         serializer.save(
-            respuesta_general=user,
+            user=user,
             estado=Informe.PENDIENTE,
             emparejamiento=pairing
         )
@@ -54,13 +54,13 @@ class InformeViewSet(viewsets.ModelViewSet):
         # 
         if user.rol_actual == 'mentor':
             return super().get_queryset().filter(
-            respuesta_general=user,
+            user=user,
             emparejamiento__fecha_emparejamiento__year=year,
             emparejamiento__cuatrimestre=semester
             )
         # 
         return super().get_queryset().filter(
-            respuesta_general=user,
+            user=user,
             emparejamiento__fecha_emparejamiento__year=year,
             emparejamiento__cuatrimestre=semester
         )

@@ -5,7 +5,7 @@ class InformeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Informe
         fields = '__all__'
-        read_only_fields = ['id', 'respuesta_general', 'emparejamiento', 'observaciones', 'created_at', 'updated_at', "fecha_entrega"]
+        read_only_fields = ['id', 'user', 'emparejamiento', 'observaciones', 'created_at', 'updated_at', "fecha_entrega"]
 
     def validate(self, data):
         errors = {}
@@ -25,7 +25,7 @@ class InformeSerializer(serializers.ModelSerializer):
 
         # Final fields based on role
         if tipo == Informe.FINAL:
-            role = (self.instance.respuesta_general.rol_actual if self.instance else self.context['request'].user.rol_actual)
+            role = (self.instance.user.rol_actual if self.instance else self.context['request'].user.rol_actual)
             if role == 'mentor':
                 for f in ['labor_mentor', 'ventajas_inconvenientes', 'mejoras_finales']:
                     if not data.get(f) and not (self.instance and getattr(self.instance, f)):
