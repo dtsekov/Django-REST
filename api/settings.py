@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'roles',
     'django_extensions',
     'django_rest_passwordreset',
-
+    'drf_spectacular',
 ]
 
 MIDDLEWARE = [
@@ -103,6 +103,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
     ),
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(hours=24),
