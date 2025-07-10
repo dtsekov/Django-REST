@@ -4,7 +4,7 @@ from rest_framework.permissions import IsAuthenticated
 from pairings.models import Emparejamiento
 from .models import Informe
 from .serializers import InformeSerializer
-from users.permissions import IsCoordinador, IsOwnerOrCoordinador, IsMentorOrMentorizado, IsMentorOrMentorizadoOrCoordinador, IsReportOwnerOrCoordinador
+from users.permissions import IsCoordinador, IsMentorOrMentorizadoOrCoordinador, IsReportOwnerOrCoordinador
 from django.utils import timezone
 
 class InformeViewSet(viewsets.ModelViewSet):
