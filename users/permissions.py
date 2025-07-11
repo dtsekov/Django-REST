@@ -1,11 +1,46 @@
 from rest_framework.permissions import BasePermission, SAFE_METHODS
+from django.utils import timezone
+
+from pairings.models import Emparejamiento
 
 class IsOwnerOrCoordinador(BasePermission):
     def has_object_permission(self, request, view, obj):
         # Coordinador puede todo, el propio usuario puede ver o editar
-        if request.user.rol_actual == 'coordinador':
+
+        user = request.user
+
+        if user.rol_actual == 'coordinador':
             return True
-        return obj == request.user
+        
+        if obj == user:
+            return True
+        now = timezone.now()
+        semester = 0
+        
+        if now.month in (9,10,11,12,1):
+            semester = 1
+        else:
+            semester = 2
+        
+        if user.rol_actual == 'mentor':
+            return Emparejamiento.objects.filter(
+                mentor=user,
+                mentorizado=obj,
+                year=now.year,
+                cuatrimestre=semester
+            ).exists()
+        
+        if user.rol_actual == 'mentorizado':
+            return Emparejamiento.objects.filter(
+                mentor=obj,
+                mentorizado=user,
+                year=now.year,
+                cuatrimestre=semester
+            ).exists()
+         
+
+
+        return False
 
 class IsRoleOwnerOrCoordinador(BasePermission):
     """

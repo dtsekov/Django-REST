@@ -19,7 +19,10 @@ class EmparejamientoViewSet(viewsets.ModelViewSet):
             semester = 2
 
         if user.rol_actual == 'coordinador':
-            return qs  # todos
+            return qs.filter(
+                year=now.year,
+                cuatrimestre=semester
+                )
         if user.rol_actual == 'mentor':
             return qs.filter(mentor=user,
                              year=now.year,
