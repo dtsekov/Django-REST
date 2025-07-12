@@ -29,7 +29,7 @@ class UsuarioManager(BaseUserManager):
 class Usuario(AbstractBaseUser, PermissionsMixin):
 
     email = models.EmailField('email address', unique=True)
-    nombre = models.CharField(max_length=150)
+    nombre = models.CharField(max_length=150, blank=True, null=True)
     rol_actual = models.CharField(
         max_length=20,
         choices=[

@@ -128,6 +128,7 @@ REST_PASSWORDRESET_EMAIL_TEMPLATE_NAME      = 'password_reset/email.txt'
 REST_PASSWORDRESET_EMAIL_HTML_TEMPLATE_NAME = 'password_reset/email.html'
 REST_PASSWORDRESET_EMAIL_SUBJECT_FORMAT     = '[Mentoría] Restablecer contraseña'
 
+FRONTEND_URL="http://localhost:5173"
 
 
 
