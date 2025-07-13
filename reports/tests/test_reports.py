@@ -22,28 +22,54 @@ class InformeTests(APITestCase):
         self.client.credentials(HTTP_AUTHORIZATION=f"Bearer {self.get_token(self.mentor)}")
         url = reverse('reports-list')
         data = {
-            "tipo": "seguimiento1",
-            "contenido": "Texto",
-            "fecha_entrega": timezone.now().isoformat(),
-            "curso": "1",
-            "grupo": "G1",
-            "nombre_completo": "Nombre",
-            "num_reuniones": 2,
-            "temas_reuniones": "Temas",
-            "tipo_actividades": "Act",
-            "participacion_mentorizada": "Part",
-            "mejoras_sugeridas": "Mejoras",
-            "horas_dedicadas": "2.5"
-        }
+        "tipo": "seguimiento1",
+        "curso": "1",
+        "grupo": "1",
+        "nombre_completo": "Alonso Sáenz",
+        "num_reuniones": 1,
+        "temas_reuniones": "1",
+        "horas_dedicadas": 0.1,
+        "observaciones_generales": "1",
+        "mejoras_sugeridas": "1",
+        "tipo_actividades": "1",
+        "problemas_detectados": "1",
+        "participacion_mentorizada": "1",
+        "actividades_realizadas": "",
+        "ayuda_recibida": "",
+        "satisfaccion": "",
+        "recomendacion": "",
+        "ventajas_inconvenientes": "",
+        "mejoras_finales": "",
+        "labor_mentor": "",
+        "seguimiento": "",
+        "labor_positiva_integracion": "",
+        "mejora_implicacion": "",
+        "comunicacion": "",
+        "organizacion": "",
+        "beneficio_mentor": "",
+        "labor_mentorizado": "",
+        "mejorar_organizacion": "",
+        "conocer_escuela": "",
+        "relaciones_personales": "",
+        "examenes": "",
+        "calificaciones": "",
+        "no_abandono": "",
+        "informacion": "",
+        "claridad_explicaciones": "",
+        "trato": "",
+        "facil_contacto": "",
+        "futuro_mentor": "",
+        "trabajo_mentor": ""
+}
         response = self.client.post(url, data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_retrieve_own_informe(self):
         informe = Informe.objects.create(
-            tipo="seguimiento1", contenido="t", fecha_entrega=timezone.now(), curso="1",
+            tipo="seguimiento1", fecha_entrega=timezone.now(), curso="1",
             grupo="G1", nombre_completo="N", num_reuniones=1, temas_reuniones="T",
             tipo_actividades="A", participacion_mentorizada="P", mejoras_sugeridas="M",
-            horas_dedicadas=1.0, user=self.mentor, emparejamiento=self.emparejamiento
+            horas_dedicadas=1.0, user=self.mentor, emparejamiento=self.emparejamiento, observaciones_generales="Test", problemas_detectados="Test", 
         )
         self.client.credentials(HTTP_AUTHORIZATION=f"Bearer {self.get_token(self.mentor)}")
         url = reverse('reports-detail', args=[informe.id])
@@ -52,10 +78,10 @@ class InformeTests(APITestCase):
 
     def test_list_reports_by_coordinador(self):
         Informe.objects.create(
-            tipo="seguimiento1", contenido="t", fecha_entrega=timezone.now(), curso="1",
+            tipo="seguimiento1", fecha_entrega=timezone.now(), curso="1",
             grupo="G1", nombre_completo="N", num_reuniones=1, temas_reuniones="T",
             tipo_actividades="A", participacion_mentorizada="P", mejoras_sugeridas="M",
-            horas_dedicadas=1.0, user=self.mentor, emparejamiento=self.emparejamiento
+            horas_dedicadas=1.0, user=self.mentor, emparejamiento=self.emparejamiento, observaciones_generales="Test", problemas_detectados="Test", 
         )
         self.client.credentials(HTTP_AUTHORIZATION=f"Bearer {self.get_token(self.coordinador)}")
         response = self.client.get(reverse('reports-list'))
@@ -63,10 +89,10 @@ class InformeTests(APITestCase):
 
     def test_patch_estado_by_coordinador(self):
         informe = Informe.objects.create(
-            tipo="seguimiento1", contenido="t", fecha_entrega=timezone.now(), curso="1",
+            tipo="seguimiento1", fecha_entrega=timezone.now(), curso="1",
             grupo="G1", nombre_completo="N", num_reuniones=1, temas_reuniones="T",
             tipo_actividades="A", participacion_mentorizada="P", mejoras_sugeridas="M",
-            horas_dedicadas=1.0, user=self.mentor, emparejamiento=self.emparejamiento
+            horas_dedicadas=1.0, user=self.mentor, emparejamiento=self.emparejamiento, observaciones_generales="Test", problemas_detectados="Test", 
         )
         self.client.credentials(HTTP_AUTHORIZATION=f"Bearer {self.get_token(self.coordinador)}")
         url = reverse('reports-detail', args=[informe.id])
@@ -76,10 +102,10 @@ class InformeTests(APITestCase):
 
     def test_patch_estado_by_non_coordinador_forbidden(self):
         informe = Informe.objects.create(
-            tipo="seguimiento1", contenido="t", fecha_entrega=timezone.now(), curso="1",
+            tipo="seguimiento1", fecha_entrega=timezone.now(), curso="1",
             grupo="G1", nombre_completo="N", num_reuniones=1, temas_reuniones="T",
             tipo_actividades="A", participacion_mentorizada="P", mejoras_sugeridas="M",
-            horas_dedicadas=1.0, user=self.mentor, emparejamiento=self.emparejamiento
+            horas_dedicadas=1.0, user=self.mentor, emparejamiento=self.emparejamiento, observaciones_generales="Test", problemas_detectados="Test", 
         )
         self.client.credentials(HTTP_AUTHORIZATION=f"Bearer {self.get_token(self.mentor)}")
         url = reverse('reports-detail', args=[informe.id])

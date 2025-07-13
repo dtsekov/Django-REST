@@ -1,5 +1,5 @@
 from rest_framework import viewsets
-from users.permissions import IsCoordinador, IsOwnerOrCoordinador, IsMentorOrMentorizado, IsMentorOrMentorizadoOrCoordinador, IsPairingOwnerOrCoordinador
+from users.permissions import IsCoordinador, IsMentorOrMentorizadoOrCoordinador, IsPairingOwnerOrCoordinador
 from .models import Emparejamiento
 from .serializers import EmparejamientoSerializer
 from django.utils import timezone
