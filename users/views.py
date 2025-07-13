@@ -3,7 +3,7 @@ from .serializers import MyTokenObtainPairSerializer
 from rest_framework import viewsets
 from .models import Usuario
 from .serializers import UsuarioSerializer
-from .permissions import IsOwnerOrCoordinador, IsCoordinador
+from .permissions import IsOwnerOrCoordinador, IsCoordinador, IsOwnerOrCoordinadorOrPartOfMenteesOrMentor
 from rest_framework.permissions import AllowAny
 
 class MyTokenObtainPairView(TokenObtainPairView):
@@ -19,7 +19,9 @@ class UsuarioViewSet(viewsets.ModelViewSet):
             return [AllowAny()]
         if self.action == 'list':
             return [IsCoordinador()]
-        if self.action in ('retrieve', 'partial_update'):
+        if self.action == 'retrieve':
+            return [IsOwnerOrCoordinadorOrPartOfMenteesOrMentor()]
+        if self.action == 'partial_update':
             return [IsOwnerOrCoordinador()]
         # Fallback: solo coordinador
         return [IsCoordinador()]

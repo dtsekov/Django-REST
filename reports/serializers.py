@@ -35,11 +35,14 @@ class InformeSerializer(serializers.ModelSerializer):
         if tipo == Informe.FINAL:
             role = (self.instance.user.rol_actual if self.instance else self.context['request'].user.rol_actual)
             if role == 'mentor':
-                for f in ['satisfaccion', 'recomendacion', 'ventajas_inconvenientes', 'mejoras_finales', 'labor_mentor', 'seguimiento', 'labor_positiva_integracion', 'mejora_implicacion', 'comunicacion', 'organizacion', 'beneficio_mentor']:
+                for f in ['satisfaccion', 'recomendacion', 'ventajas_inconvenientes', 'mejoras_finales', 'labor_mentor',
+                           'seguimiento', 'labor_positiva_integracion', 'mejora_implicacion', 'comunicacion', 'organizacion', 'beneficio_mentor']:
                     if not data.get(f) and not (self.instance and getattr(self.instance, f)):
                         errors[f] = 'Obligatorio para informe final de mentor.'
             elif role == 'mentorizado':
-                for f in ['satisfaccion', 'recomendacion', 'ventajas_inconvenientes', 'mejoras_finales', 'labor_mentorizado', 'mejorar_organizacion', 'conocer_escuela', 'relaciones_personales', 'examenes', 'calificaciones', 'no_abandono', 'informacion', 'claridad_explicaciones', 'trato', 'facil_contacto', 'futuro_mentor', 'trabajo_mentor']:
+                for f in ['satisfaccion', 'recomendacion', 'ventajas_inconvenientes', 'mejoras_finales',
+                           'labor_mentorizado', 'mejorar_organizacion', 'conocer_escuela', 'relaciones_personales',
+                             'examenes', 'calificaciones', 'no_abandono', 'informacion', 'claridad_explicaciones', 'trato', 'facil_contacto', 'futuro_mentor', 'trabajo_mentor']:
                     if not data.get(f) and not (self.instance and getattr(self.instance, f)):
                         errors[f] = 'Obligatorio para informe final de mentorizado.'
 

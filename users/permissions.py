@@ -3,15 +3,15 @@ from django.utils import timezone
 
 from pairings.models import Emparejamiento
 
-class IsOwnerOrCoordinador(BasePermission):
+class IsOwnerOrCoordinadorOrPartOfMenteesOrMentor(BasePermission):
     def has_object_permission(self, request, view, obj):
-        # Coordinador puede todo, el propio usuario puede ver o editar
+        
 
         user = request.user
-
+        # Coordinador puede todo
         if user.rol_actual == 'coordinador':
             return True
-        
+        # Propio usuario
         if obj == user:
             return True
         now = timezone.now()
@@ -21,7 +21,7 @@ class IsOwnerOrCoordinador(BasePermission):
             semester = 1
         else:
             semester = 2
-        
+        # Usuario forma parte de mis mentorizados
         if user.rol_actual == 'mentor':
             return Emparejamiento.objects.filter(
                 mentor=user,
@@ -29,7 +29,7 @@ class IsOwnerOrCoordinador(BasePermission):
                 year=now.year,
                 cuatrimestre=semester
             ).exists()
-        
+        # Usuario es mi mentor
         if user.rol_actual == 'mentorizado':
             return Emparejamiento.objects.filter(
                 mentor=obj,
@@ -42,9 +42,20 @@ class IsOwnerOrCoordinador(BasePermission):
 
         return False
 
+class IsOwnerOrCoordinador(BasePermission):
+    """
+    Permite acceso a los detalles de un Usuario al propio user o al coordinador.
+    """
+    def has_object_permission(self, request, view, obj):
+        
+        if request.user.rol_actual == 'coordinador':
+            return True
+        # el propio usuario
+        return obj == request.user
+
 class IsRoleOwnerOrCoordinador(BasePermission):
     """
-    Para la app reports: solo el autor del informe (respuesta_general) o el coordinador.
+    Para la app reports: solo el autor del informe o el coordinador.
     """
     def has_object_permission(self, request, view, obj):
         # SAFE_METHODS incluyen GET, HEAD, OPTIONS
@@ -55,7 +66,7 @@ class IsRoleOwnerOrCoordinador(BasePermission):
 
 class IsReportOwnerOrCoordinador(BasePermission):
     """
-    Para la app reports: solo el autor del informe (respuesta_general) o el coordinador.
+    Para la app reports: solo el autor del informe o el coordinador.
     """
     def has_object_permission(self, request, view, obj):
         # SAFE_METHODS incluyen GET, HEAD, OPTIONS
@@ -80,7 +91,6 @@ class IsPairingOwnerOrCoordinador(BasePermission):
 class IsCoordinador(BasePermission):
     def has_permission(self, request, view):
         return request.user.is_authenticated and request.user.rol_actual == 'coordinador'
-    
 class IsMentorOrMentorizado(BasePermission):
     def has_permission(self, request, view):
         return request.user.is_authenticated and (request.user.rol_actual == 'mentor' or request.user.rol_actual == 'mentorizado')
