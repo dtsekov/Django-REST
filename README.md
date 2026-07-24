@@ -1,2 +1,3 @@
-Para encender el servidor en local, ejecutar en la carpeta raiz del proyecto:
-"python manage.py runserver"
+La documentacion se puede consultar en el archivo "TFG_Dimitar_Danielov_Tsekov.pdf".
+
+Project documentation can be consulted in  "TFG_Dimitar_Danielov_Tsekov.pdf". (Documentation in Spanish)
